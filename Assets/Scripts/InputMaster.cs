@@ -49,6 +49,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f26bc68-1833-450a-b905-d97002a154f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +147,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Switch Bone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e23c8a2f-5e87-43c5-8e8f-50c252b17f5a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2878eef2-b60c-4e0d-8ed2-312bc8d6b17c"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +181,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_MousePosition = m_Player.FindAction("Mouse Position", throwIfNotFound: true);
         m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
         m_Player_SwitchBone = m_Player.FindAction("Switch Bone", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +235,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_Throw;
     private readonly InputAction m_Player_SwitchBone;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -212,6 +244,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @Throw => m_Wrapper.m_Player_Throw;
         public InputAction @SwitchBone => m_Wrapper.m_Player_SwitchBone;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +266,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @SwitchBone.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchBone;
                 @SwitchBone.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchBone;
                 @SwitchBone.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchBone;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +285,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @SwitchBone.started += instance.OnSwitchBone;
                 @SwitchBone.performed += instance.OnSwitchBone;
                 @SwitchBone.canceled += instance.OnSwitchBone;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -259,5 +298,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
         void OnSwitchBone(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

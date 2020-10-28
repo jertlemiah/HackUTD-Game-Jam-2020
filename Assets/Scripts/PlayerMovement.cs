@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public new Camera camera;
     public GameObject selectedBone;
+    //public StateManager stateManager;
 
     Vector2 movement;
     Vector2 mousePos;
@@ -21,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float ThrowArcOffsetY = 1;
     [SerializeField] private float ThrowArcDuration = 1;
 
-    // Update is called once per frame
     private void Awake()
     {
         controls = new InputMaster();
@@ -34,12 +34,15 @@ public class PlayerMovement : MonoBehaviour
         // Input
         //movement.x = Input.GetAxisRaw("Horizontal");
         //movement.y = Input.GetAxisRaw("Vertical");
-        mousePos = camera.ScreenToWorldPoint(controls.Player.MousePosition.ReadValue<Vector2>());
-        movement = controls.Player.Movement.ReadValue<Vector2>();
-        if (lookAtMouse)
-            LookAtPos(mousePos);
-        if (movement.SqrMagnitude() > 0)
-            Move(movement);
+        if(StateManager.IsPaused == false)
+        {
+            mousePos = camera.ScreenToWorldPoint(controls.Player.MousePosition.ReadValue<Vector2>());
+            movement = controls.Player.Movement.ReadValue<Vector2>();
+            if (lookAtMouse)
+                LookAtPos(mousePos);
+            if (movement.SqrMagnitude() > 0)
+                Move(movement);
+        }
     }
 
     private void LookAtPos(Vector2 lookPos)
@@ -52,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void ThrowBone()
     {
+        if (StateManager.IsPaused)
+            return;
         Debug.Log("Player throwing bone at: " + mousePos);
         GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
         //bone.transform.SetParent("_Dynamic");
