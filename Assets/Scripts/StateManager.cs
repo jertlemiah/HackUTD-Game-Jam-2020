@@ -8,6 +8,14 @@ public class StateManager : MonoBehaviour
     public InputMaster controls;
     public static bool IsPaused = false;
     public GameObject PauseMenuUI;
+    public static List<GameObject> availableBones = new List<GameObject>();
+
+    public static GameObject CreateBone(GameObject BonePrefab, Vector2 location)
+    {
+        GameObject bone = Instantiate(BonePrefab, location, Quaternion.identity) as GameObject;
+        availableBones.Add(bone);
+        return bone;
+    }
 
     private void OnEnable()
     {

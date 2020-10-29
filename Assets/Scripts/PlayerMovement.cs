@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public bool lookAtMouse = true;
+    public int currentHealth = 10;
 
     public InputMaster controls;
     public Rigidbody2D rb;
@@ -53,16 +54,32 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", 0f);
     }
 
+    public void DropBone()
+    {
+        Debug.Log("Player dropping bone at: " + rb.position);
+        GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
+        if(--currentHealth <= 0)
+        {
+            //death
+        }
+    }
+
     private void ThrowBone()
     {
         if (StateManager.IsPaused)
             return;
         Debug.Log("Player throwing bone at: " + mousePos);
-        GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
+        //GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
+        GameObject bone = StateManager.CreateBone(selectedBone, rb.position);
         //bone.transform.SetParent("_Dynamic");
         Vector2 midPoint = new Vector2((mousePos.x + rb.position.x) / 2, (mousePos.y + rb.position.y) / 2 + ThrowArcOffsetY);
 
         bone.transform.DOPath(new Vector3[] { rb.position, midPoint, mousePos }, ThrowArcDuration, PathType.CatmullRom, PathMode.TopDown2D);
+
+        if (--currentHealth <= 0)
+        {
+            //death
+        }
     }
 
     private void Move(Vector2 direction)
