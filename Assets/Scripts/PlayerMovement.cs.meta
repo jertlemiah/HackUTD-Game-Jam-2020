@@ -3,7 +3,14 @@ guid: 5a01cdb8c0eb4ae49981fa57f9336dd2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - rb: {fileID: 52614239799575385, guid: 88dd3018f585d664cb23c61eab3b748e, type: 3}
+  - animator: {instanceID: 0}
+  - spriteRenderer: {instanceID: 0}
+  - camera: {fileID: 8969250306797409905, guid: 771a41bdb9f359347a4f597ab43dd478,
+      type: 3}
+  - selectedBone: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -218,8 +218,9 @@ MonoBehaviour:
   rb: {fileID: 52614239799575385}
   animator: {fileID: 52614238998715682}
   spriteRenderer: {fileID: 52614238998715681}
-  camera: {fileID: 0}
+  camera: {fileID: 8969250306797409905, guid: 771a41bdb9f359347a4f597ab43dd478, type: 3}
   selectedBone: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1,
     type: 3}
+  grassClips: []
   ThrowArcOffsetY: 1.2
   ThrowArcDuration: 1.5
