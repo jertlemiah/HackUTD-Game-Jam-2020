@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8524175144651252726}
   - component: {fileID: 5582349951815435682}
   - component: {fileID: 5198243877858950370}
+  - component: {fileID: 8784973758281057061}
   m_Layer: 0
   m_Name: Grave1Graphics
   m_TagString: Untagged
@@ -102,6 +103,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8784973758281057061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907933644693824956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59096668437ec124db8c46a1e5b8f634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &4658347351762877266
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 437529370222071440}
+  - component: {fileID: 1020650216326134299}
   m_Layer: 0
   m_Name: Grave1
   m_TagString: Untagged
@@ -133,3 +151,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1020650216326134299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4658347351762877266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59096668437ec124db8c46a1e5b8f634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
