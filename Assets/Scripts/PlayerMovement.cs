@@ -13,8 +13,14 @@ public class PlayerMovement : MonoBehaviour
     public InputMaster controls;
     public Rigidbody2D rb;
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
     public new Camera camera;
     public GameObject selectedBone;
+
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip[] grassClips;
+
     //public StateManager stateManager;
 
     Vector2 movement;
@@ -28,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
         controls = new InputMaster();
         //controls.Player.Movement.performed += context => Move(context.ReadValue<Vector2>());
         controls.Player.Throw.performed += context => ThrowBone ();
+        try
+        {
+            audioSource = GetComponent<AudioSource>();
+        }    
+        finally { }
     }
 
     void Update()
@@ -49,19 +60,29 @@ public class PlayerMovement : MonoBehaviour
     private void LookAtPos(Vector2 lookPos)
     {
         Vector2 lookDir = lookPos - rb.position;
-        animator.SetFloat("Horizontal", lookDir.x);
-        animator.SetFloat("Vertical", lookDir.y);
+        if(lookDir.x < 1)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+            spriteRenderer.flipX = false;
         animator.SetFloat("Speed", 0f);
+
+        /* use these with the old player animations
+        animator.SetFloat("Horizontal", lookDir.x);
+        animator.SetFloat("Vertical", lookDir.y);*/
     }
 
-    public void DropBone()
+    public GameObject DropBone()
     {
         Debug.Log("Player dropping bone at: " + rb.position);
-        GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
+        GameObject bone = StateManager.CreateBone(selectedBone, rb.position);
+        //GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
         if(--currentHealth <= 0)
         {
             //death
         }
+        return bone;
     }
 
     private void ThrowBone()
@@ -71,7 +92,8 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Player throwing bone at: " + mousePos);
         //GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
         GameObject bone = StateManager.CreateBone(selectedBone, rb.position);
-        //bone.transform.SetParent("_Dynamic");
+        bone.GetComponent<BoneController>().SetThrowArcDuration(ThrowArcDuration);
+         
         Vector2 midPoint = new Vector2((mousePos.x + rb.position.x) / 2, (mousePos.y + rb.position.y) / 2 + ThrowArcOffsetY);
 
         bone.transform.DOPath(new Vector3[] { rb.position, midPoint, mousePos }, ThrowArcDuration, PathType.CatmullRom, PathMode.TopDown2D);
@@ -89,10 +111,23 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
         if (!lookAtMouse)
         {
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
+            if (direction.x < 1)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+                spriteRenderer.flipX = false;
+
+            /* use these with the old player animations
+            animator.SetFloat("Horizontal", lookDir.x);
+            animator.SetFloat("Vertical", lookDir.y);*/
         }
         animator.SetFloat("Speed", movement.sqrMagnitude);
+        if(audioSource != null)
+        {
+            AudioClip clip = grassClips[UnityEngine.Random.Range(0, grassClips.Length)];
+            audioSource.PlayOneShot(clip);
+        }       
     }
 
     private void OnEnable()

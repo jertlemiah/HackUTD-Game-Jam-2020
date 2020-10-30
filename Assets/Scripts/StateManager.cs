@@ -10,11 +10,29 @@ public class StateManager : MonoBehaviour
     public GameObject PauseMenuUI;
     public static List<GameObject> availableBones = new List<GameObject>();
 
+
+
     public static GameObject CreateBone(GameObject BonePrefab, Vector2 location)
     {
         GameObject bone = Instantiate(BonePrefab, location, Quaternion.identity) as GameObject;
-        availableBones.Add(bone);
+        if(bone.tag == "Bone")
+        {
+            availableBones.Add(bone);
+        }        
         return bone;
+    }
+
+    public static void RemoveBone(GameObject bone)
+    {
+        if (availableBones.Contains(bone))
+        {
+            Debug.Log("Removing bone at " + bone.transform.position + " from available bones");
+            availableBones.Remove(bone);
+        }
+        else
+        {
+            Debug.Log("RemoveBone called, but given object is not a valid GameObject");
+        }
     }
 
     private void OnEnable()

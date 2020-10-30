@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 211201497227006830}
   - component: {fileID: 211201497227006828}
   - component: {fileID: 211201497227006831}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 211201498783353548}
   - component: {fileID: 211201498783353549}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hero-idle-front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 211201499118423319}
   - component: {fileID: 1745427514}
   - component: {fileID: 211201499118423318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,10 +278,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   lookAtMouse: 1
+  currentHealth: 10
   rb: {fileID: 211201499118423319}
   animator: {fileID: 211201497227006828}
   camera: {fileID: 0}
   selectedBone: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1,
     type: 3}
-  ThrowArcOffsetY: 1
-  ThrowArcDuration: 2
+  ThrowArcOffsetY: 1.2
+  ThrowArcDuration: 1.5
