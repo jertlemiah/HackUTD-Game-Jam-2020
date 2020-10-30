@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public bool lookAtMouse = true;
     public int currentHealth = 10;
+    public Color iFrameColor = Color.white;
+
 
     public InputMaster controls;
     public Rigidbody2D rb;
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip[] grassClips;
+    [SerializeField]
+    private AudioClip throwBoneClip;
 
     //public StateManager stateManager;
 
@@ -85,18 +89,28 @@ public class PlayerMovement : MonoBehaviour
         return bone;
     }
 
-    private void ThrowBone()
+    public void ThrowBone()
+    {
+        ThrowBone(mousePos);
+    }
+
+    public void ThrowBone(Vector2 direction)
     {
         if (StateManager.IsPaused)
             return;
-        Debug.Log("Player throwing bone at: " + mousePos);
+        Debug.Log("Player throwing bone at: " + direction);
         //GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
         GameObject bone = StateManager.CreateBone(selectedBone, rb.position);
         bone.GetComponent<BoneController>().SetThrowArcDuration(ThrowArcDuration);
-         
-        Vector2 midPoint = new Vector2((mousePos.x + rb.position.x) / 2, (mousePos.y + rb.position.y) / 2 + ThrowArcOffsetY);
 
-        bone.transform.DOPath(new Vector3[] { rb.position, midPoint, mousePos }, ThrowArcDuration, PathType.CatmullRom, PathMode.TopDown2D);
+        if (audioSource != null && throwBoneClip!=null)
+        {
+            audioSource.PlayOneShot(throwBoneClip);
+        }
+
+        Vector2 midPoint = new Vector2((direction.x + rb.position.x) / 2, (direction.y + rb.position.y) / 2 + ThrowArcOffsetY);
+
+        bone.transform.DOPath(new Vector3[] { rb.position, midPoint, direction }, ThrowArcDuration, PathType.CatmullRom, PathMode.TopDown2D);
 
         if (--currentHealth <= 0)
         {
@@ -123,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Vertical", lookDir.y);*/
         }
         animator.SetFloat("Speed", movement.sqrMagnitude);
-        if(audioSource != null)
+        if(audioSource != null && !audioSource.isPlaying && grassClips.Length>0)
         {
             AudioClip clip = grassClips[UnityEngine.Random.Range(0, grassClips.Length)];
             audioSource.PlayOneShot(clip);

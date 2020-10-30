@@ -77,7 +77,15 @@ public class EnemyAI : MonoBehaviour
         switch (currentState)
         {       
             case "Chasing":
-                FollowingState(runningSpeed);
+                try
+                {
+                    FollowingState(runningSpeed);
+                }
+                catch
+                { // If a dog eats the bone another dog is running to, it would cause the game to crash
+                    currentTarget = null;
+                    ChangeState("Idle");
+                }
                 break;
             case "Eating":
                 EatingState();
@@ -101,7 +109,7 @@ public class EnemyAI : MonoBehaviour
 
         if (StateManager.availableBones.Count > 0)
         {
-            float distToClosestBone = noticeDistance;
+            float distToClosestBone = 100;
             foreach (GameObject bone in StateManager.availableBones)
             {
                 float distToThisBone = Vector2.Distance(rb.position, bone.transform.position);
@@ -112,7 +120,9 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
-        else
+
+        // if a bone was not selected, follow the player
+        if (currentTarget == null)
         {
             currentTarget = PlayerObject;
         }
@@ -174,7 +184,7 @@ public class EnemyAI : MonoBehaviour
 
     void HitPlayer()
     {
-
+        Debug.Log("Hit player");
     }
 
     void FollowingState(float speed)
