@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool win = false;
+    public bool keyGet = false;
     public float moveSpeed = 5f;
     public bool lookAtMouse = true;
     public float CurrentHealth = 10;
