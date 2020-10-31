@@ -41525,6 +41525,30 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 52614239799575384, guid: 88dd3018f585d664cb23c61eab3b748e,
+        type: 3}
+      propertyPath: fBone
+      value: 
+      objectReference: {fileID: 4915255499803996335, guid: d6b95d6796d2bb9429963b346013a41e,
+        type: 3}
+    - target: {fileID: 52614239799575384, guid: 88dd3018f585d664cb23c61eab3b748e,
+        type: 3}
+      propertyPath: nBone
+      value: 
+      objectReference: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1,
+        type: 3}
+    - target: {fileID: 52614239799575384, guid: 88dd3018f585d664cb23c61eab3b748e,
+        type: 3}
+      propertyPath: rBone
+      value: 
+      objectReference: {fileID: 2954894675531369871, guid: 060657467f98b724491e97c0d2706610,
+        type: 3}
+    - target: {fileID: 52614239799575384, guid: 88dd3018f585d664cb23c61eab3b748e,
+        type: 3}
+      propertyPath: selectedBone
+      value: 
+      objectReference: {fileID: 4915255499803996335, guid: d6b95d6796d2bb9429963b346013a41e,
+        type: 3}
     - target: {fileID: 52614239799575390, guid: 88dd3018f585d664cb23c61eab3b748e,
         type: 3}
       propertyPath: m_Name
