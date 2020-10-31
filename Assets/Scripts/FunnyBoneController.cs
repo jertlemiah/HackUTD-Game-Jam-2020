@@ -10,6 +10,8 @@ public class FunnyBoneController : BoneController
         if(currentState == "Grounded")
         {
             //make a temporary aoe that acts as an obstacle for dogs
+            CircleCollider2D col = gameObject.GetComponent<CircleCollider2D>();
+            col.enabled = true;
             Destroy(gameObject, 1f);
         }
 

@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class TombStone : MonoBehaviour
 {
-    public GameObject[] bones = new GameObject[3];
-    //0 is normal, 1 is funny, 2 is rib
 
-    void Update()
+    bool opened = false;
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        //if player is nearby and interacts
-            //give out 5 bones
-            //50% chance normal, 25% for the other two (per each bone given, not as a group)
+        if(other.tag == "Player" && !opened)
+        {
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
+            for(int i = 0; i<5; i++)
+            {
+                int rand = Random.Range(1, 4);
+                if(rand == 1 || rand == 2)
+                {
+                    player.normalBones++;
+                }
+                else if(rand == 3)
+                {
+                    player.funnyBones++;
+                }
+                else if(rand == 4)
+                {
+                    player.ribBones++;
+                }
+            }
+            opened = true;
+        }
     }
 }
