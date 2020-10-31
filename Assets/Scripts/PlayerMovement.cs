@@ -64,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
             audioSource = GetComponent<AudioSource>();
         }    
         finally { }
+        if(camera == null)
+        {
+            camera = Camera.main;
+        }
     }
 
     void Update()
@@ -160,33 +164,45 @@ public class PlayerMovement : MonoBehaviour
     {
         //isInvun = true;
         remainingIFrameDuration = iFrameDuration;
-        StartCoroutine(IFrameFlash());
+        try
+        {
+            StartCoroutine(IFrameFlash());
+        }
+        catch
+        {
+            Debug.Log("Can't start iFrame coroutine");
+        }
+        
 
         
 
         Vector2 boneVector1 = RotateVector2(direction, 30).normalized * HitStrengthBone + rb.position;
         Vector2 boneVector2 = RotateVector2(direction, -30).normalized * HitStrengthBone + rb.position;
-        Vector2 playerVector = direction.normalized * HitStrengthPlayer + rb.position;
+        //Vector2 playerVector = direction.normalized * HitStrengthPlayer + rb.position;
 
-        rb.AddForce(playerVector);
+        //rb.AddForce(playerVector);
         ThrowBone(boneVector1);
         ThrowBone(boneVector2);
     }
 
     private IEnumerator IFrameFlash()
     {
-        isInvun = true;
-        int temp = 0;
-        while(temp < NumberOfiFrames)
+        try
         {
-            spriteRenderer.color = ColorIFrame;
-            yield return new WaitForSeconds(iFrameDuration);
-            spriteRenderer.color = ColorOriginal;
-            yield return new WaitForSeconds(iFrameDuration);
-            temp++;
-        }
+            isInvun = true;
+            int temp = 0;
+            while (temp < NumberOfiFrames)
+            {
+                spriteRenderer.color = ColorIFrame;
+                yield return new WaitForSeconds(iFrameDuration);
+                spriteRenderer.color = ColorOriginal;
+                yield return new WaitForSeconds(iFrameDuration);
+                temp++;
+            }
 
-        isInvun = false;
+            isInvun = false;
+        }
+        finally { }
     }
 
     public void ThrowBone()
