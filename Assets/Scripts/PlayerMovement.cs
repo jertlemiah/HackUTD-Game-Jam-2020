@@ -122,6 +122,11 @@ public class PlayerMovement : MonoBehaviour
                 currentBone++;
             }
         }
+        
+        if(win)
+        {
+            StateManager.Instance.OpenGameOverUI();
+        }
     }
 
     private void LookAtPos(Vector2 lookPos)

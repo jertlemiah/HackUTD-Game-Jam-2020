@@ -9,6 +9,7 @@ public class StateManager : Singleton<StateManager>
     public static bool IsPaused = false;
     public GameObject PauseMenuUI;
     public GameObject GameOverUI;
+    public GameObject WinUI;
     public GameObject PlayerGUI;
     public static List<GameObject> availableBones = new List<GameObject>();
     [SerializeField]
@@ -64,6 +65,12 @@ public class StateManager : Singleton<StateManager>
     public void OpenGameOverUI()
     {
         GameOverUI.SetActive(true);
+        IsPaused = true;
+    }
+
+    public void OpenWinUI()
+    {
+        WinUI.SetActive(true);
         IsPaused = true;
     }
 
