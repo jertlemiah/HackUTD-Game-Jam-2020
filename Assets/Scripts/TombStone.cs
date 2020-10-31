@@ -12,6 +12,15 @@ public class TombStone : MonoBehaviour
         if(other.tag == "Player" && !opened)
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
+            if(player.CurrentHealth+3 > player.MaxHealth)
+            {
+                player.CurrentHealth = player.MaxHealth;
+            }
+            else
+            {
+                player.CurrentHealth += 3;
+            }
+            
             for(int i = 0; i<5; i++)
             {
                 int rand = Random.Range(1, 4);

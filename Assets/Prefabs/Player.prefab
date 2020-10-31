@@ -257,12 +257,19 @@ MonoBehaviour:
   HitStrengthPlayer: 20
   HitStrengthBone: 2
   NumberOfiFrames: 4
+  normalBones: 5
+  funnyBones: 0
+  ribBones: 0
+  currentBone: 0
   rb: {fileID: 52614239799575385}
   animator: {fileID: 52614238998715682}
   spriteRenderer: {fileID: 52614238998715681}
   camera: {fileID: 0}
   selectedBone: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1,
     type: 3}
+  nBone: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1, type: 3}
+  fBone: {fileID: 4915255499803996335, guid: d6b95d6796d2bb9429963b346013a41e, type: 3}
+  rBone: {fileID: 2954894675531369871, guid: 060657467f98b724491e97c0d2706610, type: 3}
   grassClips:
   - {fileID: 8300000, guid: 9edf44a14ed56fc44875733b098ac27e, type: 3}
   - {fileID: 8300000, guid: 854d8e574c94667448cb4b06ee34adba, type: 3}
