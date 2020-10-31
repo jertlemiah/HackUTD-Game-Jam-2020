@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public int funnyBones = 0;
     public int ribBones = 0;
 
+    int totalBones;
+
     public int currentBone = 0; //0 is normal, 1 is funny, 2 is rib
 
     public InputMaster controls;
@@ -53,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        CurrentHealth = MaxHealth;
         controls = new InputMaster();
         //controls.Player.Movement.performed += context => Move(context.ReadValue<Vector2>());
         controls.Player.Throw.performed += context => ThrowBone ();
@@ -188,6 +191,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void ThrowBone()
     {
+        if((currentBone == 1 && funnyBones < 1) || (currentBone == 2 && ribBones < 1))
+        {
+            currentBone = 0;
+        }
+        else if(currentBone == 0 && normalBones < 1)
+        {
+            if(funnyBones > 0)
+            {
+                currentBone = 1;
+            }
+            else if(ribBones > 0)
+            {
+                currentBone = 2;
+            }
+        }
         ThrowBone(mousePos);
     }
 
@@ -208,6 +226,19 @@ public class PlayerMovement : MonoBehaviour
         Vector2 midPoint = new Vector2((direction.x + rb.position.x) / 2, (direction.y + rb.position.y) / 2 + ThrowArcOffsetY);
 
         bone.transform.DOPath(new Vector3[] { rb.position, midPoint, direction }, ThrowArcDuration, PathType.CatmullRom, PathMode.TopDown2D);
+
+        if(currentBone == 0)
+        {
+            normalBones--;
+        }
+        else if(currentBone == 1)
+        {
+            funnyBones--;
+        }
+        else if(currentBone == 2)
+        {
+            ribBones--;
+        }
 
         if (--CurrentHealth <= 0)
         {
