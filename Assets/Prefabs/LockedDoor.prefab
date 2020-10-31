@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8415000588435639543}
   - component: {fileID: 6917041244705175968}
+  - component: {fileID: 8699636574205644524}
   m_Layer: 0
   m_Name: LockedDoor
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8722230522081319375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.15, y: 0.3, z: 0}
+  m_LocalPosition: {x: -2.15, y: 0.408, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1590775864923061113}
@@ -44,6 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429cfdb1525929f4a8c49700b5b1c1dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &8699636574205644524
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722230522081319375}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.009566188, y: -0.028698683}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.1925752, y: 3.1109223}
+  m_EdgeRadius: 0
 --- !u!1 &9220409738366051230
 GameObject:
   m_ObjectHideFlags: 0
