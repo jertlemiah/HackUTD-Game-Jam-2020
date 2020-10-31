@@ -12,22 +12,12 @@ public class PlayerMovement : MonoBehaviour
     public Color iFrameColor = Color.white;
 
 
-    public int normalBones = 5;
-    public int funnyBones = 0;
-    public int ribBones = 0;
-
-    public int currentBone = 0; //0 is normal, 1 is funny, 2 is rib
-
     public InputMaster controls;
     public Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public new Camera camera;
     public GameObject selectedBone;
-
-    public GameObject nBone;
-    public GameObject fBone;
-    public GameObject rBone;
 
     private AudioSource audioSource;
     [SerializeField]
@@ -57,19 +47,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(currentBone == 0)
-        {
-            selectedBone = nBone;
-        }
-        else if(currentBone == 1)
-        {
-            selectedBone = fBone;
-        }
-        else if(currentBone == 2)
-        {
-            selectedBone = rBone;
-        }
-
         // Input
         //movement.x = Input.GetAxisRaw("Horizontal");
         //movement.y = Input.GetAxisRaw("Vertical");
@@ -81,20 +58,6 @@ public class PlayerMovement : MonoBehaviour
                 LookAtPos(mousePos);
             if (movement.SqrMagnitude() > 0)
                 Move(movement);
-
-            int mouseWheel = (int)Input.GetAxis("Mouse ScrollWheel");
-            if(currentBone == 0 && mouseWheel < 0)
-            {
-                currentBone = 2;
-            }
-            else if(currentBone == 2 && mouseWheel > 0)
-            {
-                currentBone = 0;
-            }
-            else if(mouseWheel != 0)
-            {
-                currentBone += mouseWheel;
-            }
         }
     }
 
