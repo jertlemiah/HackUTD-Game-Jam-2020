@@ -56,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         CurrentHealth = MaxHealth;
+        normalBones = 10;
+        funnyBones = 1;
+        ribBones = 1;
         controls = new InputMaster();
         //controls.Player.Movement.performed += context => Move(context.ReadValue<Vector2>());
         controls.Player.Throw.performed += context => ThrowBone ();
@@ -100,18 +103,21 @@ public class PlayerMovement : MonoBehaviour
             if (movement.SqrMagnitude() > 0)
                 Move(movement);
 
-            int mouseWheel = (int)Input.GetAxis("Mouse ScrollWheel");
-            if(currentBone == 0 && mouseWheel < 0)
+            if(currentBone == 0 && Input.GetKeyDown(KeyCode.Q))
             {
                 currentBone = 2;
             }
-            else if(currentBone == 2 && mouseWheel > 0)
+            else if(currentBone == 2 && Input.GetKeyDown(KeyCode.E))
             {
                 currentBone = 0;
             }
-            else if(mouseWheel != 0)
+            else if(Input.GetKeyDown(KeyCode.Q))
             {
-                currentBone += mouseWheel;
+                currentBone--;
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentBone++;
             }
         }
     }
