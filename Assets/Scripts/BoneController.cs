@@ -57,7 +57,7 @@ public class BoneController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if(currentState == "Thrown" && timeRemaining > 0)
         {

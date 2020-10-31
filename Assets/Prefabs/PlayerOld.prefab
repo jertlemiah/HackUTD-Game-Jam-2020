@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 52614239799575384}
   m_Layer: 8
   m_Name: PlayerOld
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,6 +215,10 @@ MonoBehaviour:
   moveSpeed: 5
   lookAtMouse: 1
   currentHealth: 10
+  normalBones: 5
+  funnyBones: 0
+  ribBones: 0
+  currentBone: 0
   rb: {fileID: 52614239799575385}
   animator: {fileID: 52614238998715682}
   spriteRenderer: {fileID: 52614238998715681}
