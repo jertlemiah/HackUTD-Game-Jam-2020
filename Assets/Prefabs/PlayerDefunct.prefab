@@ -196,8 +196,13 @@ GameObject:
   - component: {fileID: 1745427514}
   - component: {fileID: 211201499118423318}
   m_Layer: 8
+<<<<<<< HEAD:Assets/Prefabs/PlayerDefunct.prefab
   m_Name: Player
   m_TagString: Untagged
+=======
+  m_Name: PlayerOld
+  m_TagString: Player
+>>>>>>> parent of 89ce53d... Revert "Merge branch 'main' of https://github.com/jertlemiah/HackUTD-Game-Jam-2020 into main":Assets/Prefabs/PlayerOld.prefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,9 +284,20 @@ MonoBehaviour:
   moveSpeed: 5
   lookAtMouse: 1
   currentHealth: 10
+<<<<<<< HEAD:Assets/Prefabs/PlayerDefunct.prefab
   rb: {fileID: 211201499118423319}
   animator: {fileID: 211201497227006828}
   camera: {fileID: 0}
+=======
+  normalBones: 5
+  funnyBones: 0
+  ribBones: 0
+  currentBone: 0
+  rb: {fileID: 52614239799575385}
+  animator: {fileID: 52614238998715682}
+  spriteRenderer: {fileID: 52614238998715681}
+  camera: {fileID: 8969250306797409905, guid: 771a41bdb9f359347a4f597ab43dd478, type: 3}
+>>>>>>> parent of 89ce53d... Revert "Merge branch 'main' of https://github.com/jertlemiah/HackUTD-Game-Jam-2020 into main":Assets/Prefabs/PlayerOld.prefab
   selectedBone: {fileID: 933021104417722638, guid: 8dfa306a6ba257e4797ab0361749c6a1,
     type: 3}
   ThrowArcOffsetY: 1.2
