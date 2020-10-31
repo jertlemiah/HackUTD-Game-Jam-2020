@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StateManager : MonoBehaviour
+public class StateManager : Singleton<StateManager>
 {
     public InputMaster controls;
     public static bool IsPaused = false;
     public GameObject PauseMenuUI;
+    public GameObject GameOverUI;
+    public GameObject PlayerGUI;
     public static List<GameObject> availableBones = new List<GameObject>();
+    [SerializeField]
+    public GameObject playerObject;
 
 
 
@@ -52,6 +56,17 @@ public class StateManager : MonoBehaviour
         controls.Player.Pause.performed += context => ChangePauseState();
     }
 
+    public void RestartGame()
+    {
+        //SceneManager.LoadScene(SceneManager.);
+    }
+
+    public void OpenGameOverUI()
+    {
+        GameOverUI.SetActive(true);
+        IsPaused = true;
+    }
+
     private void ChangePauseState()
     {
         Debug.Log("ChangeGameState called");
@@ -68,6 +83,7 @@ public class StateManager : MonoBehaviour
     public void ResumeGame()
     {
         PauseMenuUI.SetActive(false);
+        PlayerGUI.SetActive(true);
         Time.timeScale = 1f;
         IsPaused = false;
     }
@@ -75,6 +91,7 @@ public class StateManager : MonoBehaviour
     public void PauseGame()
     {
         PauseMenuUI.SetActive(true);
+        PlayerGUI.SetActive(false);
         Time.timeScale = 0f;
         IsPaused = true;
     }

@@ -8,9 +8,17 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public bool lookAtMouse = true;
-    public int currentHealth = 10;
-    public Color iFrameColor = Color.white;
-
+    public float CurrentHealth = 10;
+    [SerializeField]
+    public float MaxHealth = 10;
+    public Color ColorIFrame = Color.red;
+    public Color ColorOriginal= Color.white;
+    public float iFrameDuration = 0.02f;
+    public float remainingIFrameDuration = 0;
+    public bool isInvun = false;
+    public float HitStrengthPlayer = 5;
+    public float HitStrengthBone = 5;
+    public int NumberOfiFrames = 4;
 
     public InputMaster controls;
     public Rigidbody2D rb;
@@ -54,6 +62,13 @@ public class PlayerMovement : MonoBehaviour
         {
             mousePos = camera.ScreenToWorldPoint(controls.Player.MousePosition.ReadValue<Vector2>());
             movement = controls.Player.Movement.ReadValue<Vector2>();
+
+            //if (isInvun)
+            //{
+            //    remainingIFrameDuration -= Time.deltaTime;
+            //    if (remainingIFrameDuration <= 0)
+            //        isInvun = false;
+            //}
             if (lookAtMouse)
                 LookAtPos(mousePos);
             if (movement.SqrMagnitude() > 0)
@@ -82,11 +97,56 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Player dropping bone at: " + rb.position);
         GameObject bone = StateManager.CreateBone(selectedBone, rb.position);
         //GameObject bone = Instantiate(selectedBone, rb.position, Quaternion.identity) as GameObject;
-        if(--currentHealth <= 0)
+        if(--CurrentHealth <= 0)
         {
-            //death
+            StateManager.Instance.OpenGameOverUI();
         }
         return bone;
+    }
+
+    public Vector2 RotateVector2(Vector2 v, float degrees)
+    {
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+
+        float tx = v.x;
+        float ty = v.y;
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+        return v;
+    }
+
+    public void HitPlayer(Vector2 direction)
+    {
+        //isInvun = true;
+        remainingIFrameDuration = iFrameDuration;
+        StartCoroutine(IFrameFlash());
+
+        
+
+        Vector2 boneVector1 = RotateVector2(direction, 30).normalized * HitStrengthBone + rb.position;
+        Vector2 boneVector2 = RotateVector2(direction, -30).normalized * HitStrengthBone + rb.position;
+        Vector2 playerVector = direction.normalized * HitStrengthPlayer + rb.position;
+
+        rb.AddForce(playerVector);
+        ThrowBone(boneVector1);
+        ThrowBone(boneVector2);
+    }
+
+    private IEnumerator IFrameFlash()
+    {
+        isInvun = true;
+        int temp = 0;
+        while(temp < NumberOfiFrames)
+        {
+            spriteRenderer.color = ColorIFrame;
+            yield return new WaitForSeconds(iFrameDuration);
+            spriteRenderer.color = ColorOriginal;
+            yield return new WaitForSeconds(iFrameDuration);
+            temp++;
+        }
+
+        isInvun = false;
     }
 
     public void ThrowBone()
@@ -112,9 +172,9 @@ public class PlayerMovement : MonoBehaviour
 
         bone.transform.DOPath(new Vector3[] { rb.position, midPoint, direction }, ThrowArcDuration, PathType.CatmullRom, PathMode.TopDown2D);
 
-        if (--currentHealth <= 0)
+        if (--CurrentHealth <= 0)
         {
-            //death
+            StateManager.Instance.OpenGameOverUI();
         }
     }
 

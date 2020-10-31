@@ -11,8 +11,8 @@ public class EnemyAI : MonoBehaviour
 
     public float walkingSpeed = 200f;
     public float runningSpeed = 600f;
-    public float noticeDistance = 5f;
-    public float eatingDistance = 1f;
+    public float noticeDistance = 10f;
+    public float eatingDistance = 1.5f;
     public float nextWaypointDistance = 3f;
     public float eatingTime = 2;
     public float timeRemaining = 0;
@@ -27,6 +27,10 @@ public class EnemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
+    [SerializeField]
+    CircleCollider2D SmellingRangeCollider;
+    [SerializeField]
+    CircleCollider2D EatingRangeCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -49,8 +53,22 @@ public class EnemyAI : MonoBehaviour
         {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
-        
+        if(SmellingRangeCollider != null)
+            SmellingRangeCollider.radius = noticeDistance;
+        if (EatingRangeCollider != null)
+            EatingRangeCollider.radius = eatingDistance;
+
+        //PlayerObject = StateManager.Instance.playerObject;
+        runningSpeed = Random.Range(runningSpeed*0.8f, runningSpeed*1.2f);
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.tag == "Bone" || collision.tag == "Bone")
+    //    {
+
+    //    }
+    //}
 
     void UpdatePath()
     {
@@ -70,13 +88,34 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        SetClosestTarget();
+        if(PlayerObject == null)
+            PlayerObject = StateManager.Instance.playerObject;
+
+        if (currentTarget != null)
+        {
+            float distanceToFollowing = Vector2.Distance(rb.position, PlayerObject.transform.position);
+            if (distanceToFollowing > noticeDistance)
+            {
+                ChangeState("Idle");
+                currentTarget = null;
+            }
+        }
+
+        try
+        {
+            SetClosestTarget();
+        }
+        catch
+        {
+            Debug.Log(name + " Failed to set closest target");
+        }
         if (currentState == "Idle" && currentTarget != null)
             ChangeState("Chasing");
 
         switch (currentState)
         {       
             case "Chasing":
+                
                 try
                 {
                     FollowingState(runningSpeed);
@@ -107,9 +146,17 @@ public class EnemyAI : MonoBehaviour
          *      set target to player
          */
 
+        // if a bone was not selected, follow the player
+        if (currentTarget == null &&
+            Vector2.Distance(rb.position, PlayerObject.transform.position) <= noticeDistance &&
+            PlayerObject.GetComponent<PlayerMovement>().isInvun == false)
+        {
+            currentTarget = PlayerObject;
+        }
+
         if (StateManager.availableBones.Count > 0)
         {
-            float distToClosestBone = 100;
+            float distToClosestBone = noticeDistance;
             foreach (GameObject bone in StateManager.availableBones)
             {
                 float distToThisBone = Vector2.Distance(rb.position, bone.transform.position);
@@ -121,11 +168,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        // if a bone was not selected, follow the player
-        if (currentTarget == null)
-        {
-            currentTarget = PlayerObject;
-        }
+        
     }
 
     bool HasReachedTarget()
@@ -152,10 +195,11 @@ public class EnemyAI : MonoBehaviour
 
                 // If the dog has caught the player, force the player to drop a bone, 
                 //  then set the current target to that bone
-                if(currentTarget == PlayerObject)
-                {
-                    currentTarget = PlayerObject.GetComponent<PlayerMovement>().DropBone();
-                }
+                //if(currentTarget == PlayerObject)
+                //{
+                //    currentTarget = PlayerObject.GetComponent<PlayerMovement>().DropBone();
+                //}
+                //
                 StateManager.RemoveBone(currentTarget);
                 Destroy(currentTarget);
                 currentTarget = null;         
@@ -185,6 +229,9 @@ public class EnemyAI : MonoBehaviour
     void HitPlayer()
     {
         Debug.Log("Hit player");
+        currentTarget = null;
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        PlayerObject.GetComponent<PlayerMovement>().HitPlayer(direction);
     }
 
     void FollowingState(float speed)
