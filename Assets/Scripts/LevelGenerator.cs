@@ -15,10 +15,10 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     protected GameObject[] pickupRooms;
 
-    public Vector2 posBottomLeft = new Vector2(-16, -16);
-    public Vector2 posBottomRight = new Vector2(16, -16);
-    public Vector2 posTopLeft = new Vector2(-16, 16);
-    public Vector2 posTopRight = new Vector2(16, 16);
+    public Vector2 posBottomLeft = new Vector2(-6, -5);
+    public Vector2 posBottomRight = new Vector2(6, -5);
+    public Vector2 posTopLeft = new Vector2(-6, 5);
+    public Vector2 posTopRight = new Vector2(6, 5);
 
     bool startRoom = false;
     bool keyRoom = false;
@@ -125,7 +125,7 @@ public class LevelGenerator : MonoBehaviour
                         }
                         else if (rand == 2 && !keyRoom)
                         {
-                            Instantiate(doorRooms[Random.Range(0, keyRooms.Length)], posBottomRight, Quaternion.identity);
+                            Instantiate(keyRooms[Random.Range(0, keyRooms.Length)], posBottomRight, Quaternion.identity);
                             keyRoom = true;
                         }
                         else if (rand == 3 && !pickupRoom)
@@ -143,7 +143,7 @@ public class LevelGenerator : MonoBehaviour
                         }
                         else if (rand == 2 && !keyRoom)
                         {
-                            Instantiate(doorRooms[Random.Range(0, keyRooms.Length)], posBottomRight, Quaternion.identity);
+                            Instantiate(keyRooms[Random.Range(0, keyRooms.Length)], posBottomRight, Quaternion.identity);
                             keyRoom = true;
                         }
                         else if (rand == 3 && !doorRoom)
@@ -157,22 +157,22 @@ public class LevelGenerator : MonoBehaviour
 
             else if (i == 2) //top left selection
             {
-                if (rand == 1)
+                if (rand == 1 && !startRoom)
                 {
                     Instantiate(startRooms[Random.Range(0, startRooms.Length)], posTopLeft, Quaternion.identity);
                     startRoom = true;
                 }
-                else if (rand == 2)
+                else if (rand == 2 && !keyRoom)
                 {
                     Instantiate(keyRooms[Random.Range(0, keyRooms.Length)], posTopLeft, Quaternion.identity);
                     keyRoom = true;
                 }
-                else if (rand == 3)
+                else if (rand == 3 && !doorRoom)
                 {
                     Instantiate(doorRooms[Random.Range(0, doorRooms.Length)], posTopLeft, Quaternion.identity);
                     doorRoom = true;
                 }
-                else if (rand == 4)
+                else if (rand == 4 && !pickupRoom)
                 {
                     Instantiate(pickupRooms[Random.Range(0, pickupRooms.Length)], posTopLeft, Quaternion.identity);
                     pickupRoom = true;
@@ -236,8 +236,8 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (rand == 1)
                         {
-                            Instantiate(keyRooms[Random.Range(0, keyRooms.Length)], posTopLeft, Quaternion.identity);
-                            keyRoom = true;
+                            Instantiate(startRooms[Random.Range(0, startRooms.Length)], posTopLeft, Quaternion.identity);
+                            startRoom = true;
                         }
                         else if (rand == 2)
                         {

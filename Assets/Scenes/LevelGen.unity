@@ -218,7 +218,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -11}
+  m_Offset: {x: 0, y: -10.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -229,7 +229,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 22, y: 0.5}
+  m_Size: {x: 24, y: 0.5}
   m_EdgeRadius: 0
 --- !u!61 &116197653
 BoxCollider2D:
@@ -244,7 +244,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 11}
+  m_Offset: {x: 0, y: 10.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -255,7 +255,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 22, y: 0.5}
+  m_Size: {x: 24, y: 0.5}
   m_EdgeRadius: 0
 --- !u!61 &116197654
 BoxCollider2D:
@@ -270,7 +270,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -11, y: 0}
+  m_Offset: {x: -12.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -281,7 +281,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 22}
+  m_Size: {x: 0.5, y: 20}
   m_EdgeRadius: 0
 --- !u!61 &116197655
 BoxCollider2D:
@@ -296,7 +296,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 11, y: 0}
+  m_Offset: {x: 12.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -307,7 +307,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 22}
+  m_Size: {x: 0.5, y: 20}
   m_EdgeRadius: 0
 --- !u!4 &116197656
 Transform:
@@ -1375,10 +1375,10 @@ MonoBehaviour:
   - {fileID: 4194119115430719970, guid: 60dcd3a34a5a98f4c868c9f6ea32a285, type: 3}
   - {fileID: 6232079587164989056, guid: a4570a583bff5f3478cfd222a3514f6f, type: 3}
   - {fileID: 7745678927573414969, guid: b2a9748c0b9f644428b0fd0421231d05, type: 3}
-  posBottomLeft: {x: -5, y: -5}
-  posBottomRight: {x: 5, y: -5}
-  posTopLeft: {x: -5, y: 5}
-  posTopRight: {x: 5, y: 5}
+  posBottomLeft: {x: -6, y: -5}
+  posBottomRight: {x: 6, y: -5}
+  posTopLeft: {x: -6, y: 5}
+  posTopRight: {x: 6, y: 5}
 --- !u!1 &1118404370
 GameObject:
   m_ObjectHideFlags: 0
