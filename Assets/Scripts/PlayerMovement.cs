@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float HitStrengthBone = 5;
     public int NumberOfiFrames = 4;
 
+    public bool DontDoCo = false;
     public int normalBones = 5;
     public int funnyBones = 0;
     public int ribBones = 0;
@@ -202,18 +203,22 @@ public class PlayerMovement : MonoBehaviour
     {
         try
         {
-            isInvun = true;
-            int temp = 0;
-            while (temp < NumberOfiFrames)
+            if (!DontDoCo)
             {
-                spriteRenderer.color = ColorIFrame;
-                yield return new WaitForSeconds(iFrameDuration);
-                spriteRenderer.color = ColorOriginal;
-                yield return new WaitForSeconds(iFrameDuration);
-                temp++;
-            }
+                isInvun = true;
+                int temp = 0;
+                while (temp < NumberOfiFrames)
+                {
+                    spriteRenderer.color = ColorIFrame;
+                    yield return new WaitForSeconds(iFrameDuration);
+                    spriteRenderer.color = ColorOriginal;
+                    yield return new WaitForSeconds(iFrameDuration);
+                    temp++;
+                }
 
-            isInvun = false;
+                isInvun = false;
+            }
+            
         }
         finally { }
     }
