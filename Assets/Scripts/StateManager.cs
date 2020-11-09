@@ -12,7 +12,7 @@ public class StateManager : Singleton<StateManager>
     public GameObject WinUI;
     public GameObject PlayerGUI;
     public static List<GameObject> availableBones = new List<GameObject>();
-    [SerializeField]
+    //[SerializeField]
     public GameObject playerObject;
 
 
@@ -55,6 +55,7 @@ public class StateManager : Singleton<StateManager>
         controls = new InputMaster();
         //controls.Player.Movement.performed += context => Move(context.ReadValue<Vector2>());
         controls.Player.Pause.performed += context => ChangePauseState();
+        //playerObject = GameObject.FindGameObjectsWithTag("Player")[0];
     }
 
     public void RestartGame()

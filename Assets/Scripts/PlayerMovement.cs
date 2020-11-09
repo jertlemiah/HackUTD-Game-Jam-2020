@@ -74,11 +74,16 @@ public class PlayerMovement : MonoBehaviour
         {
             camera = Camera.main;
         }
+        StateManager.Instance.playerObject = this.gameObject;
+        //GameObject[] CameraArr = GameObject.FindGameObjectsWithTag("MainCamera");
+        //if(CameraArr)
+        Camera.main.GetComponent<CameraFollow>().followTarget = this.gameObject.transform;
     }
 
     void Update()
     {
-        if(currentBone == 0)
+        
+        if (currentBone == 0)
         {
             selectedBone = nBone;
         }
